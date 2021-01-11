@@ -71,43 +71,43 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                         </tr>
                         <tr class="table-success">
                             <td>
-                               <a href=" Skills.php"> Skills</a>
+                               <a href="skills/Skills.php"> Skills</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                              <a href="  Education">  Education</a>
+                              <a href="Education/Education.php">  Education</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Languages">Languages</a>
+                                <a href="Languages/Languages">Languages</a>
                             </td>
                           
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Interest">Interest</a>
+                                <a href="Interest/Interest.php">Interest</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="Experience">Experience</a>
+                                <a href="ExperienceExperience.php">Experience</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="Projects">Projects</a>
+                                <a href="Projects/Projects.php">Projects</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Contact">Contact</a>
+                                <a href="Contact/Contact.php">Contact</a>
                             </td>
                           
                         </tr>

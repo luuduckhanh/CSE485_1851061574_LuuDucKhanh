@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
@@ -6,14 +7,51 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
    
    exit();
 }
+require_once "../mysqli_connect.php";
+$id=$_SESSION['id'];
+$sql="select * from u_Information where UserID= $id;";
+$query =mysqli_query($dbcon,$sql);
+$result=mysqli_fetch_assoc($query);
+if(isset($_POST['submit']))
+    {   
+        $HeadTitle= $_POST['HeadTitle'];
+        $Name = $_POST['Name'];
+        $Job = $_POST['Job'];
+        if($_FILES['ProfileImage']['name']=='')
+        {
+            $ProfileImage=$result['Profile_Image'];
+        }
+        else
+        {
+            $ProfileImage =$_FILES['ProfileImage']['name'];
+            $ProfileImage_tmp=$_FILES['ProfileImage']['tmp_name'];
+            move_uploaded_file($ProfileImage_tmp,'../image/' .$ProfileImage);
+        }
+        $AboutMe= $_POST['AboutMe'];
+        $sql = "UPDATE u_Information SET Head_Title='$HeadTitle',Name='$Name',Job='$Job',Profile_Image='$ProfileImage',About_Me='$AboutMe' WHERE UserID= $id;";
+        
+
+      if ($query= mysqli_query($dbcon,$sql))
+      {
+        header('location: Basic_Infor.php');
+      }
+      else
+      {
+        
+      }
+        
+        
+      
+     
+    }
 ?>
 <!doctype html>
 <html lang="en">
   <head>
     <title>Title</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -65,49 +103,49 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Basic_infor/Basic_Infor.php">Basic Infor</a>
+                                <a href="Basic_Infor.php">Basic Infor</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                               <a href=" Skills.php"> Skills</a>
+                               <a href=" ../skills/Skills.php"> Skills</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                              <a href="  Education">  Education</a>
+                              <a href="../Education/Education.php">  Education</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Languages">Languages</a>
+                                <a href="../Languages/Language.php">Languages</a>
                             </td>
                           
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Interest">Interest</a>
+                                <a href="../Interest/Interest.php">Interest</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="Experience">Experience</a>
+                                <a href="../Experience/Experience.php">Experience</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="Projects">Projects</a>
+                                <a href="../Projects/Projects.php">Projects</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Contact">Contact</a>
+                                <a href="../Contact/Contact.php">Contact</a>
                             </td>
                           
                         </tr>
@@ -116,6 +154,36 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                 </table>
             </div>
             <div class="col-md-11">
+            <div class="card-header">
+                    <h2>Update basic information</h2>
+                </div>
+                <div class="card-body">
+                   <form method="POST" enctype="multipart/form-data">
+                        <div class="from group">
+                            <label for="">Head Title</label>
+                            <input type="text" name="HeadTitle" class="from-control" require value="<?php echo $result['Head_Title'];?>">
+                        </div>
+                        <div class="from group">
+                            <label for="">Name</label>
+                            <input type="text" name="Name" class="from-control" require value="<?php echo $result['Name'];?> ">
+                        </div>
+                        <div class="from group">
+                            <label for="">Job</label>
+                            <input type="text" name="Job" class="from-control" require value="<?php echo $result['Job'];?>">
+                        </div>
+                        <div class="from group">
+                            <label for="">Profile Image</label>
+                            <input type="file" name="ProfileImage" class="from-control" require>
+                        </div>
+                        <div class="from group" style="width=400px;" >
+                            <label for="">About Me</label>
+                            <textarea style="width:500px;"class="form-control" rows="5" name="AboutMe" require ><?php echo $result['About_Me'];?></textarea>  
+                        </div>
+
+                        <<button name="submit" type="submit" class="btn btn-primary">update</button>
+                  </form>
+                </div>
+
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
 {
-   header("Location: login_page.php");
+   header("Location:../login_page.php");
    
    exit();
 }
@@ -65,49 +65,49 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Basic_Infor.php">Basic Infor</a>
+                                <a href="../Basic_Infor/Basic_Infor.php">Basic Infor</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                               <a href="../skills/Skills.php"> Skills</a>
+                               <a href="../skills/skills.php"> Skills</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                              <a href="  Education">  Education</a>
+                              <a href="../Education/Education.php">  Education</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Languages">Languages</a>
+                                <a href="../Languages/Languages.php">Languages</a>
                             </td>
                           
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Interest">Interest</a>
+                                <a href="../Interest/Interest.php">Interest</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="Experience">Experience</a>
+                                <a href="../Experience/Experience.php">Experience</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="Projects">Projects</a>
+                                <a href="../Projects/Project.php">Projects</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="../Contact/Contact.php">Contact</a>
+                                <a href="Contact.php">Contact</a>
                             </td>
                           
                         </tr>
@@ -117,26 +117,24 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
             </div>
             <div class="col-md-11">
             <div class="page-header clearfix">
-                        <h2 class="pull-left">Basic Information </h2>
-                        <a href="create.php" class="btn btn-success pull-right">Add Basic Information</a>                       
+                        <h2 class="pull-left">Contact </h2>
+                        <a href="create.php" class="btn btn-primary pull-right">Add Contact</a>                       
                     </div>
                     <?php
                     // Include file config.php
                     require_once "../mysqli_connect.php";
                     $id=$_SESSION['id'];
                     // Cố gắng thực thi truy vấn
-                    $sql = "SELECT * FROM u_information where UserID= $id;";
+                    $sql = "SELECT * FROM contact where UserID= $id;";
                     if($result = mysqli_query($dbcon, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo "<table class='table table-bordered table-striped'>";
                                 echo "<thead>";
                                     echo "<tr>";
                                         echo "<th>#</th>";
-                                        echo "<th style='max-width:50px;'>Head Title</th>";
-                                        echo "<th>Name</th>";
-                                        echo "<th>Job</th>";
-                                        echo "<th>Profile Image</th>";
-                                        echo "<th>About Me</th>";
+                                        echo "<th>Type</th>";
+                                        echo "<th>Contact Link</th>";
+                                        echo "<th>Description</th>";
                                         echo "<th>Action</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -144,13 +142,12 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['Head_Title'] . "</td>";
-                                        echo "<td>" . $row['Name'] . "</td>";
-                                        echo "<td>" . $row['Job'] . "</td>";
-                                        echo "<td><img  style='width:100px;' src='../image/" . $row['Profile_Image'] . "'></td>";
-                                        echo "<td>" . $row['About_Me'] . "</td>";
+                                        echo "<td>" . $row['Type'] . "</td>";
+                                        echo "<td>" . $row['Contact_Link']; 
+                                        echo "<td>" . $row['Description'] . "</td>";
                                         echo "<td>";
                                         echo  "<a href='update.php?id=" . $row['id'] . "'><i class='fas fa-edit'></i></a>";
+                                        echo "<br>";
                                         echo  "<a href='delete.php?id=" . $row['id'] . "'><i class='fas fa-trash'></i></a>";
                                         echo "</td>";
                                     echo "</tr>";

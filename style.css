@@ -136,3 +136,7 @@ header img{
 .social-icon{
     display: inline-block;
 }
+
+.from-control{
+    max-width: width 500px;
+}

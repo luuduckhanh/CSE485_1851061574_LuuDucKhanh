@@ -2,43 +2,25 @@
 session_start();
 if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
 {
-   header("Location: login_page.php");
+   header("Location:../login_page.php");
    
    exit();
 }
 require_once "../mysqli_connect.php";
 $id=$_SESSION['id'];
-$sql="select * from u_Information where UserID= $id;";
-if ($result =mysqli_query($dbcon,$sql))
-{
-    if(mysqli_num_rows($result)>0)
-    {
-       
-        header('location:Basic_Infor.php');
-        echo '<script type="text/JavaScript">  
-        alert("Ban da co thong tin ve muc nay"); 
-        </script>';
-    }
-    else
-    {
+$sql = "SELECT * FROM skills WHERE UserID = $id";
+$result =mysqli_query($dbcon,$sql);
         if(isset($_POST['submit']))
     {   
-        $HeadTitle= $_POST['HeadTiTle'];
-        $Name = $_POST['Name'];
-        $Job = $_POST['Job'];
-        $ProfileImage =$_FILES['ProfileImage']['name'];
-        $ProfileImage_tmp=$_FILES['ProfileImage']['tmp_name'];
-        $AboutMe = $_POST['AboutMe'];
-        $sql= "INSERT INTO  u_Information( Head_Title,Name,Job,Profile_Image,About_Me,UserID )
-        values ('$HeadTitle','$Name','$Job','$ProfileImage','$AboutMe',$id) ";
+        $Skill_Name= $_POST['Skill_Name'];
+        $Progress= $_POST['Progress'];
+        $sql= "insert into skills(Skill_Name,Progress,UserID )
+        values ('$Skill_Name','$Progress',$id); ";
         $query= mysqli_query($dbcon,$sql);
-        move_uploaded_file($ProfileImage_tmp,'image/'.$ProfileImage);
-        header('location: admin_page.php');
+        header('location: skills.php');
      
     }
-    }
    
-}
 
 ?>
 <!doctype html>
@@ -66,7 +48,7 @@ if ($result =mysqli_query($dbcon,$sql))
                     </button> <a class="navbar-brand" href="#">Logout</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="index.php">Your CV</a>
+                    </button> <a class="navbar-brand" href="../index.php">Your CV</a>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                      
                         <form class="form-inline">
@@ -99,49 +81,49 @@ if ($result =mysqli_query($dbcon,$sql))
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Basic_Infor.php">Basic Infor</a>
+                                <a href="../Basic_Infor/Basic_Infor.php">Basic Infor</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                               <a href=" Skills.php"> Skills</a>
+                               <a href="skills.php"> Skills</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                              <a href="  Education">  Education</a>
+                              <a href="../Education/Education.php">  Education</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Languages">Languages</a>
+                                <a href="../Languages/Languages.php">Languages</a>
                             </td>
                           
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Interest">Interest</a>
+                                <a href="../Interest/Interest.php">Interest</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="Experience">Experience</a>
+                                <a href="../Experience/Experience.php">Experience</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="Projects">Projects</a>
+                                <a href="../Projects/Projects.php">Projects</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Contact">Contact</a>
+                                <a href="../Contact/Contact.php">Contact</a>
                             </td>
                           
                         </tr>
@@ -151,31 +133,18 @@ if ($result =mysqli_query($dbcon,$sql))
             </div>
             <div class="col-md-11">
                 <div class="card-header">
-                    <h2>Add basic information</h2>
+                    <h2>Add Skill</h2>
                 </div>
                 <div class="card-body">
                    <form method="POST" enctype="multipart/form-data">
                         <div class="from group">
-                            <label for="">Head Title</label>
-                            <input type="text" name="HeadTitle" class="from-control" require>
+                            <label for="">Skill Name</label>
+                            <input type="text" name="Skill_Name" class="from-control" require>
                         </div>
                         <div class="from group">
-                            <label for="">Name</label>
-                            <input type="text" name="Name" class="from-control" require>
+                            <label for="">Progress</label>
+                            <input type="text" name="Progress" class="from-control" require>
                         </div>
-                        <div class="from group">
-                            <label for="">Job</label>
-                            <input type="text" name="Job" class="from-control" require>
-                        </div>
-                        <div class="from group">
-                            <label for="">Profile Image</label>
-                            <input type="file" name="ProfileImage" class="from-control" require>
-                        </div>
-                        <div class="from group">
-                            <label for="">About Me</label>
-                            <textarea class="form-control" rows="5" name="AboutMe" require></textarea> 
-                        </div>
-
                         <<button name="submit" type="submit" class="btn btn-primary">Add</button>
                   </form>
                 </div>
