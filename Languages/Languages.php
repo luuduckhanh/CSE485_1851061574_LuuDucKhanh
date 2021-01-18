@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
+if (!isset($_SESSION['User_Level']))
 {
    header("Location:../login_page.php");
    
@@ -11,11 +11,11 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Languages</title>
    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/db986ed900.js" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="form.css">
 </head>
 <body>
 
@@ -23,25 +23,32 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
-                     
+                   
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../home.php">Home</a>
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="#">Home</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="#">Logout</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="../index.php">Your CV</a>
+                    </button> <a class="navbar-brand" href="../cv.php">Your CV</a>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                      
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" /> 
+                        <form action="../search.php" class="form-inline" method="POST" enctype="multipart/form-data">
+                            <input class="form-control mr-sm-2" type="text" name="username" /> 
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">
                                 Search
                             </button>
-                        </form>
-                       
+                        </form>                      
+                    </div>
+                    <div class="right-navbar">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../logout.php">Logout</a>
+                    </div>
+                    <div class="right-navbar">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../change_password.php">Change Password</a>
                     </div>
                 </nav>
             </div>
@@ -57,12 +64,6 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                User
-                            </td>
-                            
-                        </tr>
                         <tr class="table-active">
                             <td>
                                 <a href="../Basic_Infor/Basic_Infor.php">Basic Infor</a>
@@ -101,7 +102,7 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="../Projects/Project.php">Projects</a>
+                                <a href="../Projects/Projects.php">Projects</a>
                             </td>
                            
                         </tr>
@@ -158,7 +159,7 @@ if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
                             echo "<p class='lead'><em>Không tìm thấy bản ghi.</em></p>";
                         }
                     } else{
-                        echo "Ban chua co thong tin ve muc nay";
+                        echo "No information about this item yet. Click the add button to create one";
                     }
  
                     // Đóng kết nối

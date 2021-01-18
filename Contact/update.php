@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
+if (!isset($_SESSION['User_Level']) )
 {
    header("Location:../login_page.php");
    
@@ -44,31 +44,40 @@ if(isset($_POST['submit']))
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="form.css">
   </head>
   <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark fixed-top">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark ">
                      
+                     
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../home.php">Home</a>
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="#">Home</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="#">Logout</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="../index.php">Your CV</a>
+                    </button> <a class="navbar-brand" href="../cv.php">Your CV</a>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                      
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" /> 
+                        <form action="../search.php" class="form-inline" method="POST" enctype="multipart/form-data">
+                            <input class="form-control mr-sm-2" type="text" name="username" /> 
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">
                                 Search
                             </button>
-                        </form>
-                       
+                        </form>                      
+                    </div>
+                    <div class="right-navbar">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../logout.php">Logout</a>
+                    </div>
+                    <div class="right-navbar">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../change_password.php">Change Password</a>
                     </div>
                 </nav>
             </div>
@@ -84,12 +93,6 @@ if(isset($_POST['submit']))
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                User
-                            </td>
-                            
-                        </tr>
                         <tr class="table-active">
                             <td>
                                 <a href="../Basic_Infor/Basic_Infor.php">Basic Infor</a>
@@ -164,14 +167,15 @@ if(isset($_POST['submit']))
                         <option>reddit</option>
                         <option>github</option>
                     </select>
-                    <div class="from group">
-                            <label for="">Contact Link</label><br>
-                            <input type="text" name="Contact_Link" class="from-control" require value="<?php echo $result['Contact_Link']; ?>">
-                     </div>
-                     <div class="from group" >
-                            <label for="">Description</label>
-                            <textarea class="form-control" rows="5" name="Description" require ><?php echo $result['Description']; ?></textarea>  
+                    <div class="from group" >
+                            <label for="">Contact link</label>
+                            <textarea class="form-control" rows="3" name="Contact_Link" require ><?php echo $result['Contact_Link']; ?></textarea>  
                         </div>
+                    <div class="from group">
+                            <label for="">Description</label><br>
+                            <input type="text" size="50" name="Description" class="from-control" require value="<?php echo $result['Description']; ?>">
+                     </div>
+                    
                     </div>                        
                         <<button name="submit" type="submit" class="btn btn-primary">Update</button>
                   </form>

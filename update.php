@@ -1,55 +1,65 @@
+
 <?php
 session_start();
-if (!isset($_SESSION['User_Level']) )
+if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
 {
-   header("Location:../login_page.php");
+   header("Location:login_page.php");
    
    exit();
 }
-require_once "../mysqli_connect.php";
-$id=$_SESSION['id'];
-$sql = "SELECT * FROM skills WHERE UserID = $id";
-$result =mysqli_query($dbcon,$sql);
-        if(isset($_POST['submit']))
+require_once "mysqli_connect.php";
+$id=$_GET['id'];
+$sql="select * from user where id= $id;";
+$query =mysqli_query($dbcon,$sql);
+$result=mysqli_fetch_assoc($query);
+if(isset($_POST['submit']))
     {   
-        $Skill_Name= $_POST['Skill_Name'];
-        $Progress= $_POST['Progress'];
-        $sql= "insert into skills(Skill_Name,Progress,UserID )
-        values ('$Skill_Name','$Progress',$id); ";
-        $query= mysqli_query($dbcon,$sql);
-        header('location: skills.php');
+        $User_Level= $_POST['User_Level'];
+        $sql = "UPDATE user SET User_Level=$User_Level WHERE id= $id;";
+        
+
+      if ($query= mysqli_query($dbcon,$sql))
+      {
+        header('location: admin_page.php');
+      }
+      else
+      {
+        
+      }
+        
+        
+      
      
     }
-   
-
 ?>
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Create</title>
+    <title>Update</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="form.css">
+    
   </head>
   <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+                     
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="../home.php">Home</a>
+                    </button> <a class="navbar-brand" href="admin_page.php">Home</a>
                     
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="../cv.php">Your CV</a>
+                    </button> <a class="navbar-brand" href="cv.php">Your CV</a>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                      
-                        <form action="../search.php" class="form-inline" method="POST" enctype="multipart/form-data">
+                        <form action="search.php" class="form-inline" method="POST" enctype="multipart/form-data">
                             <input class="form-control mr-sm-2" type="text" name="username" /> 
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">
                                 Search
@@ -59,12 +69,12 @@ $result =mysqli_query($dbcon,$sql);
                     <div class="right-navbar">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="../logout.php">Logout</a>
+                    </button> <a class="navbar-brand" href="logout.php">Logout</a>
                     </div>
                     <div class="right-navbar">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="../change_password.php">Change Password</a>
+                    </button> <a class="navbar-brand" href="change_password.php">Change Password</a>
                     </div>
                 </nav>
             </div>
@@ -82,49 +92,49 @@ $result =mysqli_query($dbcon,$sql);
                     <tbody>
                         <tr class="table-active">
                             <td>
-                                <a href="../Basic_infor/Basic_Infor.php">Basic Infor</a>
+                                <a href="Basic_Infor/Basic_Infor.php">Basic Infor</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                               <a href="skills.php"> Skills</a>
+                               <a href="skills/Skills.php"> Skills</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                              <a href="../Education/Education.php">  Education</a>
+                              <a href=" Education/Education.php">  Education</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="../Languages/Languages.php">Languages</a>
+                                <a href="Languages/Languages.php">Languages</a>
                             </td>
                           
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="../Interest/Interest.php">Interest</a>
+                                <a href="Interest/Interest.php">Interest</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="../Experience/Experience.php">Experience</a>
+                                <a href="Experience/Experience.php">Experience</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="../Projects/Projects.php">Projects</a>
+                                <a href="Projects/Projects.php">Projects</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="../Contact/Contact.php">Contact</a>
+                                <a href="Contact/Contact.php">Contact</a>
                             </td>
                           
                         </tr>
@@ -133,23 +143,20 @@ $result =mysqli_query($dbcon,$sql);
                 </table>
             </div>
             <div class="col-md-11">
-                <div class="card-header">
-                    <h2>Add Skill</h2>
+            <div class="card-header">
+                    <h2>Update User</h2>
                 </div>
                 <div class="card-body">
                    <form method="POST" enctype="multipart/form-data">
-                        <div class="from group">
-                            <label for="">Skill Name</label>
-                            <input type="text" name="Skill_Name" class="from-control" require>
-                        </div>
-                        <div class="from group">
-                            <label for="">Progress</label>
-                            <input type="text" name="Progress" class="from-control" require>
-                        </div>
-                        <<button name="submit" type="submit" class="btn btn-primary">Add</button>
+                   <select class="form-control" name="User_Level" value="<?php echo $result['User_Level']; ?>">
+                        <option>0</option>
+                        <option>1</option>
+                      
+                    </select>                   
+                       <<button name="submit" type="submit" class="btn btn-primary">update</button>
                   </form>
                 </div>
-                
+
             </div>
         </div>
     </div>

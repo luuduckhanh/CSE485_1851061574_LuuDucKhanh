@@ -11,7 +11,7 @@ if (!isset($_SESSION['User_Level']) )
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact</title>
+    <title>Experience</title>
    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/db986ed900.js" crossorigin="anonymous"></script>
@@ -23,8 +23,8 @@ if (!isset($_SESSION['User_Level']) )
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
-                  
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
                     </button> <a class="navbar-brand" href="../home.php">Home</a>
                     
@@ -96,7 +96,7 @@ if (!isset($_SESSION['User_Level']) )
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="../Experience/Experience.php">Experience</a>
+                                <a href="Experience.php">Experience</a>
                             </td>
                          
                         </tr>
@@ -108,7 +108,7 @@ if (!isset($_SESSION['User_Level']) )
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Contact.php">Contact</a>
+                                <a href="../Contact/Contact.php">Contact</a>
                             </td>
                           
                         </tr>
@@ -118,23 +118,24 @@ if (!isset($_SESSION['User_Level']) )
             </div>
             <div class="col-md-11">
             <div class="page-header clearfix">
-                        <h2 class="pull-left">Contact </h2>
-                        <a href="create.php" class="btn btn-primary pull-right">Add Contact</a>                       
+                        <h2 class="pull-left">Experience </h2>
+                        <a href="create.php" class="btn btn-primary pull-right">Add Education</a>                       
                     </div>
                     <?php
                     // Include file config.php
                     require_once "../mysqli_connect.php";
                     $id=$_SESSION['id'];
                     // Cố gắng thực thi truy vấn
-                    $sql = "SELECT * FROM contact where UserID= $id;";
+                    $sql = "SELECT * FROM experience where UserID= $id;";
                     if($result = mysqli_query($dbcon, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo "<table class='table table-bordered table-striped'>";
                                 echo "<thead>";
                                     echo "<tr>";
                                         echo "<th>#</th>";
-                                        echo "<th>Type</th>";
-                                        echo "<th>Contact Link</th>";
+                                        echo "<th>Title</th>";
+                                        echo "<th>Work_Place</th>";
+                                        echo "<th>Time</th>";
                                         echo "<th>Description</th>";
                                         echo "<th>Action</th>";
                                     echo "</tr>";
@@ -143,8 +144,9 @@ if (!isset($_SESSION['User_Level']) )
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['Type'] . "</td>";
-                                        echo "<td>" . $row['Contact_Link']; 
+                                        echo "<td>" . $row['Title'] . "</td>";
+                                        echo "<td>" . $row['Work_Place'] . "</td>"; 
+                                        echo "<td>" . $row['Time'] . "</td>";
                                         echo "<td>" . $row['Description'] . "</td>";
                                         echo "<td>";
                                         echo  "<a href='update.php?id=" . $row['id'] . "'><i class='fas fa-edit'></i></a>";

@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['User_Level']) or ($_SESSION['User_Level'] != 1))
+if (!isset($_SESSION['User_Level']) )
 {
-   header("Location: login_page.php");
+   header("Location: ../login_page.php");
    
    exit();
 }
@@ -13,11 +13,8 @@ if ($result =mysqli_query($dbcon,$sql))
 {
     if(mysqli_num_rows($result)>0)
     {
-       
         header('location:Basic_Infor.php');
-        echo '<script type="text/JavaScript">  
-        alert("Ban da co thong tin ve muc nay"); 
-        </script>';
+       
     }
     else
     {
@@ -33,7 +30,7 @@ if ($result =mysqli_query($dbcon,$sql))
         values ('$HeadTitle','$Name','$Job','$ProfileImage','$AboutMe',$id) ";
         $query= mysqli_query($dbcon,$sql);
         move_uploaded_file($ProfileImage_tmp,'image/'.$ProfileImage);
-        header('location: admin_page.php');
+        header('location: Basic_Infor.php');
      
     }
     }
@@ -44,38 +41,45 @@ if ($result =mysqli_query($dbcon,$sql))
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Create</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="form.css">
   </head>
   <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
-                     
+                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">                    
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../home.php">Home</a>
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="#">Home</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="#">Logout</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> <a class="navbar-brand" href="index.php">Your CV</a>
+                    </button> <a class="navbar-brand" href="../cv.php">Your CV</a>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                      
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" /> 
+                        <form action="../search.php" class="form-inline" method="POST" enctype="multipart/form-data">
+                            <input class="form-control mr-sm-2" type="text" name="username" /> 
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">
                                 Search
                             </button>
-                        </form>
-                       
+                        </form>                      
+                    </div>
+                    <div class="right-navbar">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../logout.php">Logout</a>
+                    </div>
+                    <div class="right-navbar">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="../change_password.php">Change Password</a>
                     </div>
                 </nav>
             </div>
@@ -91,12 +95,6 @@ if ($result =mysqli_query($dbcon,$sql))
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                User
-                            </td>
-                            
-                        </tr>
                         <tr class="table-active">
                             <td>
                                 <a href="Basic_Infor.php">Basic Infor</a>
@@ -105,43 +103,43 @@ if ($result =mysqli_query($dbcon,$sql))
                         </tr>
                         <tr class="table-success">
                             <td>
-                               <a href=" Skills.php"> Skills</a>
+                               <a href=" ../skills/Skills.php"> Skills</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                              <a href="  Education">  Education</a>
+                              <a href="../Education/Education.php">  Education</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Languages">Languages</a>
+                                <a href="../Languages/Languages.php">Languages</a>
                             </td>
                           
                         </tr>
                         <tr class="table-active">
                             <td>
-                                <a href="Interest">Interest</a>
+                                <a href="../Interest/Interest.php">Interest</a>
                             </td>
                        
                         </tr>
                         <tr class="table-success">
                             <td>
-                                <a href="Experience">Experience</a>
+                                <a href="../Experience/Experience.php">Experience</a>
                             </td>
                          
                         </tr>
                         <tr class="table-warning">
                             <td>
-                                <a href="Projects">Projects</a>
+                                <a href="../Projects/Projects.php">Projects</a>
                             </td>
                            
                         </tr>
                         <tr class="table-danger">
                             <td>
-                                <a href="Contact">Contact</a>
+                                <a href="../Contact/Contact.php">Contact</a>
                             </td>
                           
                         </tr>
@@ -173,7 +171,7 @@ if ($result =mysqli_query($dbcon,$sql))
                         </div>
                         <div class="from group">
                             <label for="">About Me</label>
-                            <textarea class="form-control" rows="5" name="AboutMe" require></textarea> 
+                            <textarea class="form-control" style="width:400px;" rows="6" name="AboutMe" require></textarea> 
                         </div>
 
                         <<button name="submit" type="submit" class="btn btn-primary">Add</button>

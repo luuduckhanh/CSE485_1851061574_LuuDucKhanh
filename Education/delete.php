@@ -4,7 +4,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"]))
 {
     $id=$_POST['id'];
 echo $id;
-$sql = "DELETE FROM skills WHERE id = $id;";
+$sql = "DELETE FROM contact WHERE id = $id;";
 if($result=mysqli_query($dbcon,$sql))
 {
     echo "xoa thanh cong";
@@ -12,7 +12,7 @@ if($result=mysqli_query($dbcon,$sql))
 else{
     echo "khong than cong";
 }
-header('location:skills.php');
+header('location:Education.php');
 }
 
 
@@ -44,7 +44,7 @@ header('location:skills.php');
                             <p>Are you sure you want to delete this record?</p><br>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
-                                <a href="skills.php" class="btn btn-default">No</a>
+                                <a href="Education.php" class="btn btn-default">No</a>
                             </p>
                         </div>
                     </form>
